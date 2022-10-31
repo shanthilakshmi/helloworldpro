@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body style="background-color: lightskyblue">
+<div class="modal" id="my_modal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+            </div>
+
+            <div class="modal-body">
+                <h3>Update</h3>
+                <form th:action="@{/updatec}"  method="post">
+                    <input name="bookId" type="text" class="form-control"  readonly="readonly"/><br/>
+                    <input name="coursename" type="text" class="form-control"   value="" /><br/>
+                    <input type="submit"  class="btn btn-primary" value="Update">
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-inverse" style="background-color: deepskyblue">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand"  style="color: black">Home</a>
+        </div>
+        <div class="nav navbar-nav navbar-right">
+            <a class="navbar-brand" th:href="@{/registerCourses}" style="color: black">Register</a>
+            <a class="navbar-brand" th:href="@{/changePassword}" style="color: black">Change Password</a>
+            <a class="navbar-brand" th:href="@{/}" style="color: black"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+        </div>
+    </div>
+</nav>
+<table>
+    <tbody>
+    <tr>
+        <td><strong>ID:</strong></td>
+        <td><span th:text="${li.getFname()}"></span></td>
+    </tr>
+
+    </tbody>
+</table>
+</table>
+<h2>List of Registered Courses</h2>
+<table class="table table-hover" style="background-color: skyblue">
+    <thead>
+    <tr >
+        <th scope="col">Course Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="str,iterStat : ${s}">
+        <td><span th:text="${str}"></span></td>
+    </tr>
+    </tbody>
+</table>
+<h2>List of Available Courses</h2>
+<table class="table table-hover" style="background-color: skyblue">
+    <thead>
+    <tr >
+        <th scope="col">Course Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="str,iterStat : ${c}">
+        <td><span th:text="${str}"></span></td>
+    </tr>
+    </tbody>
+</table>
+<script>
+$('#my_modal').on('show.bs.modal', function(e) {
+var bookId = $(e.relatedTarget).data('book-id');
+$(e.currentTarget).find('input[name="bookId"]').val(bookId);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+
+</style>
+<body style="background-color: lightskyblue">
+<nav class="navbar navbar-inverse" style="background-color: deepskyblue">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="color: black">Home</a>
+        </div>
+
+        <div class="nav navbar-nav navbar-right">
+            <a class="navbar-brand" th:href="@{/addCourse}" style="color: black">Add Course</a>
+            <a class="navbar-brand" th:href="@{/}" style="color: black"><span class="glyphicon glyphicon-log-in"></span> Logout</a>
+        </div>
+    </div>
+</nav>
+<!----------update modal------------->
+<div class="modal" id="my_modal" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+            </div>
+
+            <div class="modal-body">
+                <h3>Update</h3>
+                <form th:action="@{/updatec}"  method="post">
+                    <input name="bId" type="text" class="form-control"  readonly="readonly"/><br/>
+                    <input name="bName" type="text" class="form-control"  readonly="readonly"/><br/>
+                    <input name="coursename" type="text" class="form-control"   value="" /><br/>
+                    <input type="submit"  class="btn btn-primary" value="Update">
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<!-------------------delete modal------------------------------>
+<div class="modal" id="my_modal1" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+            </div>
+
+            <div class="modal-body">
+                <h3>Delete</h3>
+                <form th:action="@{/deletec}"  method="post">
+                    <h6>Do you want to delete the course:</h6>
+                    <input name="bId" type="number" class="form-control"  readonly="readonly"/><br/>
+                    <input name="bName" type="text" class="form-control"  readonly="readonly"/><br/>
+                    <input type="submit"  class="btn btn-primary" value="Yes">
+                </form>
+                <br/>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" align="left">No</button>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<h2>List Of Courses</h2>
+<table class="table table-hover" style="background-color: skyblue">
+    <thead>
+    <tr >
+        <th scope="col">Course ID</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="b : ${c}">
+        <td><span th:text="${b.getCourseid()}"></span></td>
+        <td><span th:text="${b.getCoursename()}"></span></td>
+        <td><button type="button" class="btn btn-primary" style="background-color: blue"><a href="#my_modal" data-toggle="modal" th:attr="data-b-id=${b.getCourseid()}, data-b-name=${b.getCoursename()}" style="color: #1b1e21">Update</a></button></td>
+        <td><button type="button" class="btn btn-primary" style="background-color: red"><a href="#my_modal1" data-toggle="modal" th:attr="data-b-id=${b.getCourseid()} ,data-b-name=${b.getCoursename()}" style="color: #1b1e21">Delete</a></button></td>
+    </tr>
+    </tbody>
+</table>
+<h2>List of Students</h2>
+<table class="table table-hover" style="background-color: skyblue">
+    <thead>
+    <tr >
+        <th scope="col">Student ID</th>
+        <th scope="col">Student Name</th>
+        <th scope="col">Courses</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="str,iterStat : ${s}">
+        <td><span th:text="${str[0]}"></span></td>
+        <td><span th:text="${str[1]}"></span></td>
+        <td><span th:text="${str[2]}"></span></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<script>
+    $('#my_modal').on('show.bs.modal', function(e) {
+        var bId = $(e.relatedTarget).data('b-id');
+        var bName = $(e.relatedTarget).data('b-name');
+        $(e.currentTarget).find('input[name="bId"]').val(bId),$(e.currentTarget).find('input[name="bName"]').val(bName);
+    });
+    $('#my_modal1').on('show.bs.modal', function(e) {
+        var bId = $(e.relatedTarget).data('b-id');
+        var bName = $(e.relatedTarget).data('b-name');
+        $(e.currentTarget).find('input[name="bId"]').val(bId),$(e.currentTarget).find('input[name="bName"]').val(bName);;
+        //$(e.currentTarget).find('input[name="bookName"]').val(bookName);
+    });
+</script>
+</body>
+</html>

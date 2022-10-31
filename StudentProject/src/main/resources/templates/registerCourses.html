@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Course</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<body style="background-color: skyblue">
+<div class="container my-3">
+    <div class="row">
+        <div class="row-md-8 mx-auto">
+            <h1>New Course</h1><br/>
+            <form th:action="@{/registernewCourse}"  method="post" >
+                <div class="form-group row">
+                    <label for="stdid" class="col-sm-3 col-form-label">ID</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="stdid" th:value="${s.getStdid()}">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label  class="col-sm-3 col-form-label">Courses</label>
+                    <div class="col-sm-10">
+                        <select id="inputState" name="courses" class="form-control">
+                            <option th:each="str,iterStat : ${c}"
+                                    th:text="${str}">
+
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <div class="alert alert-danger" role="alert" th:text="${message}" th:if="${message}"></div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-10">
+                        <button type="submit" class="btn btn-primary btn-block mb-2">Register</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
