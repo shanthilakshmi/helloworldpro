@@ -1,7 +1,4 @@
 node {
-    stage('SCM') {
-        git 'https://github.com/shanthilakshmi/helloworldpro.git'
-    }
     stage('clean') {
         sh label: '', script: 'mvn clean'
     }
