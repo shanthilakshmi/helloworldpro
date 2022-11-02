@@ -3,7 +3,7 @@ node {
         sh label: '', script: 'mvn clean'
     }
     stage('compile test package') {
-        sh label: '', script: 'mvn compile test package'
+        sh label: '', script: 'mvn compile package'
     }
     stage('buildandtest') {
             withSonarQubeEnv(credentialsId: 'sonar2') {
